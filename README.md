@@ -34,9 +34,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 ## Running Pi-hole
 
-#### Pi-hole runs on port 53, your ubuntu distro may already occupied that port.
-
-#### Disable 53 Port
+#### Pi-hole runs on port 53, your ubuntu distro may already occupied that port. To disable 53 port follow below steps.
 
 - Copy and paste below code
 
@@ -48,4 +46,10 @@ sudo systemctl stop systemd-resolved && sudo systemctl disable systemd-resolved
 
 ```js
 sudo nano /etc/resolv.conf
+```
+
+- ou will want to find and replace the following line within this file contains "nameserver 127.0.0.53" and replace that with the below line:
+
+```js
+nameserver 1.1.1.1
 ```
