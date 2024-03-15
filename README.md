@@ -34,7 +34,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 ## Running Pi-hole
 
-#### Pi-hole runs on port 53, your ubuntu distro may already occupied that port. To disable 53 port follow below steps.
+#### Disable 53 port: Pi-hole runs on port 53, your ubuntu distro may already occupied that port. To disable 53 port follow below steps.
 
 - Copy and paste below code
 
@@ -52,4 +52,60 @@ sudo nano /etc/resolv.conf
 
 ```js
 nameserver 1.1.1.1
+```
+
+#### Make a directory and paste code
+
+- Create a folder
+
+```js
+mkdir pihole
+```
+
+- CD to that folder
+
+```js
+cd pihole
+```
+
+- nano a new file (for pasting the code)
+
+```js
+nano docker-compose.yml
+```
+
+- Paste the below code to text editor
+
+```js
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "8080:80/tcp"
+    dns:
+      - 127.0.0.1
+      - 8.8.8.8
+    environment:
+      TZ: "Asia/Dhaka"
+      WEBPASSWORD: "r@nd0mpa$$"
+    volumes:
+      - "./etc-pihole:/etc/pihole"
+      - "./etc-dnsmasq.d:/etc/dnsmasq.d"
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+```
+
+- Save and exit (ctrl + x, y, enter)
+
+- run docker composer
+
+```js
+docker compose up -d
 ```
