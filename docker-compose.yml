@@ -19,6 +19,7 @@ services:
     volumes:
       - "./etc-pihole:/etc/pihole"
       - "./etc-dnsmasq.d:/etc/dnsmasq.d"
+      - "./02-custom-settings.conf:/etc/dnsmasq.d/02-custom-settings.conf"
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
